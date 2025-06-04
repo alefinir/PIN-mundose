@@ -1,4 +1,4 @@
-##Create and bootstrap webserver #lanzar test1
+##Create and bootstrap webserver #lanzar test2
 resource "aws_instance" "webserver" {
   ami                         = "ami-00c39f71452c08778"
   instance_type               = "t2.micro"
