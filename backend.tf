@@ -1,7 +1,7 @@
 terraform {
   backend "s3"{
-    bucket                 = "mundose22"
-    region                 = "us-east-1"
+    bucket                 = "mundose-alefinir"
+    region                 = "us-east-2"
     key                    = "backend.tfstate"
     dynamodb_table         = "terraformstatelock"
   }
