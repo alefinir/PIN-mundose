@@ -4,7 +4,6 @@
 <h3 align="left">Team Members:</h3>
 <p align="left">
 <ul>
-  <li>Elemento 1</li>
   <li>Gibrán Guzmán </li>
   <li>Jonathan Franco</li>
   <li>Lautaro Correa Lopez</li>
