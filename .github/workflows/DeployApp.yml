@@ -1,0 +1,62 @@
+name: Deploy Application to EKS
+
+## not deploy during push temporarily
+#on:
+#  push:
+#    branches:
+#      - dev
+#    paths:
+#      - 'app/**' # Trigger when application code changes
+
+on:
+ workflow_dispatch:
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: us-east-1
+      EKS_CLUSTER_NAME: mundose-cluster # From Terraform outputs or a secret
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push Docker image
+        working-directory: ./app
+        run: |
+          # Define your image name and tag
+          IMAGE_NAME=mundose
+          IMAGE_TAG=latest
+
+          # Build the Docker image
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
+
+          # Tag the image with the ECR repository URI
+          docker tag $IMAGE_NAME:$IMAGE_TAG ${{ secrets.ECR_REGISTRY_URL }}/$IMAGE_NAME:$IMAGE_TAG
+
+          # Push the image to ECR
+          docker push ${{ secrets.ECR_REGISTRY_URL }}//$IMAGE_NAME:$IMAGE_TAG
+
+#      - name: Deploy with Kubectl (if using raw manifests)
+#        working-directory: ./eks
+#        run: |
+#          aws eks update-kubeconfig --region us-est-1 --name mundose-cluster
+#          kubectl apply -f ./deployment.yaml
+#          kubectl apply -f ./service.yaml
+          # Update image tag in deployment.yaml if necessary:
+          #kubectl set image deployment/mundose-deployment mundose=${{ secrets.ECR_REGISTRY_URL }}/mundose:latest
