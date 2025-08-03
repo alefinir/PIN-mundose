@@ -45,12 +45,12 @@ jobs:
 
           # Build the Docker image
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
-
+          echo 'tag'
           # Tag the image with the ECR repository URI
           docker tag $IMAGE_NAME:$IMAGE_TAG ${{ secrets.ECR_REGISTRY_URL }}/$IMAGE_NAME:$IMAGE_TAG
-
+          echo 'push'
           # Push the image to ECR
-          docker push ${{ secrets.ECR_REGISTRY_URL }}//$IMAGE_NAME:$IMAGE_TAG
+          docker push ${{ secrets.ECR_REGISTRY_URL }}/$IMAGE_NAME:$IMAGE_TAG
 
 #      - name: Deploy with Kubectl (if using raw manifests)
 #        working-directory: ./eks
