@@ -1,0 +1,13 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mundose-service
+spec:
+  selector:
+    app: mundose
+  ports:
+    - protocol: TCP
+      port: 80 # Port on the service
+      targetPort: 80 # Port on the container (should match containerPort in deployment)
+  type: LoadBalancer # Creates an AWS Classic Load Balancer (or ALB if configured with ingress controller)

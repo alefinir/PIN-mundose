@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mundose-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mundose
+  template:
+    metadata:
+      labels:
+        app: mundose
+    spec:
+      containers:
+      - name: mundose
+        image: 061470250089.dkr.ecr.us-east-1.amazonaws.com/mundose:v1
+        ports:
+        - containerPort: 80
