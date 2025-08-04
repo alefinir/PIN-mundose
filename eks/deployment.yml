@@ -14,6 +14,7 @@ spec:
     spec:
       containers:
       - name: mundose
+        imagePullPolicy: Always
         image: 061470250089.dkr.ecr.us-east-1.amazonaws.com/mundose:v1
         ports:
         - containerPort: 80
