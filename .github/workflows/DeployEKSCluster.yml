@@ -37,7 +37,7 @@ jobs:
       - name: Deploy with Kubectl (if using raw manifests)
         working-directory: ./eks
         run: |
-          aws eks update-kubeconfig --region us-est-1 --name mundose-cluster
+          aws eks update-kubeconfig --region us-east-1 --name mundose-cluster
           kubectl apply -f ./deployment.yml
           kubectl apply -f ./service.yml
           # Update image tag in deployment.yaml if necessary:
