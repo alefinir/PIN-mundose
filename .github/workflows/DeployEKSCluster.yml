@@ -40,5 +40,6 @@ jobs:
           aws eks update-kubeconfig --region us-east-1 --name mundose-cluster
           kubectl apply -f ./deployment.yml
           kubectl apply -f ./service.yml
+          kubectl get service mundose-service
           # Update image tag in deployment.yaml if necessary:
           #kubectl set image deployment/mundose-deployment mundose=${{ secrets.ECR_REGISTRY_URL }}/mundose:latest
