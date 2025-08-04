@@ -42,5 +42,6 @@ jobs:
           kubectl apply -f ./service.yml
           # Update image tag in deployment.yaml if necessary:
           kubectl set image deployment/mundose-deployment mundose=${{ secrets.ECR_REGISTRY_URL }}/mundose:latest
+          kubectl rollout restart deployment
           kubectl get pods -o wide
           kubectl get service mundose-service
