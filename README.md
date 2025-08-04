@@ -1,5 +1,5 @@
 <h1 align="center">Hi 👋, WE ARE TEAM ONE</h1>
-<h3 align="center">PIN 2 - Mundos-E</h3>
+<h3 align="center">PIN FINAL - Mundos-E</h3>
 
 <h3 align="left">Team Members:</h3>
 <p align="left">
