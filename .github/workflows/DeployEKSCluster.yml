@@ -73,3 +73,6 @@ jobs:
           #kubectl get prometheus-stack-grafana
           kubectl get deployments
           kubectl get services
+          sleep 30
+          echo '-------get endpoint url-------'
+          kubectl get secret --namespace default prometheus-stack-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
