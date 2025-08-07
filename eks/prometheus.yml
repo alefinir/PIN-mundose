@@ -8,7 +8,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus
+      app: mundose-service
   template:
     metadata:
       labels:
