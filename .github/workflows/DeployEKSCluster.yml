@@ -59,6 +59,7 @@ jobs:
         run: |
           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
           helm repo update
+          helm uninstall prometheus-stack
           helm install prometheus-stack prometheus-community/kube-prometheus-stack \
             --set grafana.sidecar.dashboards.enabled=true \
             --set grafana.sidecar.dashboards.label="grafana_dashboard" \
