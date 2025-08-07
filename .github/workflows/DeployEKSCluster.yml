@@ -53,3 +53,4 @@ jobs:
           sleep 30
           echo 'get grafana url'
           kubectl get svc grafana -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+          kubectl get service grafana
