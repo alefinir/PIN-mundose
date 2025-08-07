@@ -47,10 +47,25 @@ jobs:
           echo 'get endpoint url'
           kubectl get pods -o wide
           kubectl get service mundose-service
+          ################################
           ##monitoring##
-          kubectl apply -f prometheus.yml
-          kubectl apply -f grafana.yml
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: '3.9.0'
+
+      - name: Deploy Prometheus and Grafana stack
+        run: |
+          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm repo update
+          helm install prometheus-stack prometheus-community/kube-prometheus-stack \
+            --set grafana.sidecar.dashboards.enabled=true \
+            --set grafana.sidecar.dashboards.label="grafana_dashboard" \
+            --values ./prometheus-stack.yml
+      - name: Deploy Grafana dashboard ConfigMap
+        run: kubectl apply -f ./grafana-dashboard.yml
           sleep 30
-          echo 'get prometheus/grafana url'
-          kubectl get service prometheus
-          kubectl get service grafana
+          echo 'get endpoint url'
+          kubectl get prometheus-stack-grafana
+          kubectl get deployments
+          kubectl get services
