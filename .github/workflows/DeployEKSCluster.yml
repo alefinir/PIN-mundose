@@ -65,7 +65,8 @@ jobs:
             --values ./prometheus-stack.yml
       - name: Deploy Grafana dashboard ConfigMap
         working-directory: ./eks
-        run: kubectl apply -f ./grafana-dashboard.yml
+        run: |
+          kubectl apply -f ./grafana-dashboard.yml
           sleep 30
           echo 'get endpoint url'
           kubectl get prometheus-stack-grafana
