@@ -59,20 +59,12 @@ jobs:
         run: |
           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
           helm repo update
-          helm uninstall prometheus-stack
-          helm install prometheus-stack prometheus-community/kube-prometheus-stack \
-            --set grafana.sidecar.dashboards.enabled=true \
-            --set grafana.sidecar.dashboards.label="grafana_dashboard" \
-            --values ./prometheus-stack.yml
-      - name: Deploy Grafana dashboard ConfigMap
-        working-directory: ./eks
-        run: |
-          kubectl apply -f ./grafana-dashboard.yml
-          sleep 30
-          echo 'get endpoint url'
-          #kubectl get prometheus-stack-grafana
+          helm upgrade --install prometheus-stack prometheus-community/kube-prometheus-stack --set grafana.service.type=LoadBalancer   
+          echo '-------get info-------'
+          sleep 30       
           kubectl get deployments
           kubectl get services
           sleep 30
-          echo '-------get endpoint url-------'
+          echo '-------get password-------'
           kubectl get secret --namespace default prometheus-stack-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+          kubectl --namespace default get secrets prometheus-stack-grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
