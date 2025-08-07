@@ -55,6 +55,7 @@ jobs:
           version: '3.9.0'
 
       - name: Deploy Prometheus and Grafana stack
+        working-directory: ./eks
         run: |
           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
           helm repo update
@@ -63,6 +64,7 @@ jobs:
             --set grafana.sidecar.dashboards.label="grafana_dashboard" \
             --values ./prometheus-stack.yml
       - name: Deploy Grafana dashboard ConfigMap
+        working-directory: ./eks
         run: kubectl apply -f ./grafana-dashboard.yml
           sleep 30
           echo 'get endpoint url'
