@@ -70,6 +70,6 @@ jobs:
           kubectl apply -f ./grafana-dashboard.yml
           sleep 30
           echo 'get endpoint url'
-          kubectl get prometheus-stack-grafana
+          #kubectl get prometheus-stack-grafana
           kubectl get deployments
           kubectl get services
