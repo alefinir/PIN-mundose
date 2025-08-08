@@ -49,10 +49,10 @@ resource "aws_security_group" "ssh_access" {
 # Despliega la instancia EC2
 resource "aws_instance" "mundose_vm" {
   ami                         = "ami-00c39f71452c08778"
-  instance_type = "t2.micro"
+  instance_type               = "t2.micro"
   key_name                    = "alefinir"
   associate_public_ip_address = true
-  vpc_security_group_ids = [aws_security_group.ssh_access.id]
+  vpc_security_group_ids      = [aws_security_group.ssh_access.id]
   tags = {
     Name = "mundose-vm"
   }
