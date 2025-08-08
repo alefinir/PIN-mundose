@@ -29,13 +29,13 @@ provider "aws" {
 ####################
 resource "aws_security_group" "ssh_access" {
   name        = "ssh-access-sg"
-  #description = "Permite acceso SSH desde una IP especifica"
+  description = "Permite acceso SSH desde una IP especifica"
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["190.134.158.217/32"] # ¡Importante! Aquí se restringe el acceso a la IP deseada
+    cidr_blocks = ["190.134.158.217/32"] # ¡Importante! Aqui se restringe el acceso a la IP deseada
   }
 
   egress {
@@ -63,7 +63,7 @@ resource "aws_instance" "mundose_vm" {
 # ---
 
 output "public_ip" {
-  description = "La dirección IP pública de la instancia EC2"
+  description = "La direccion IP publica de la instancia EC2"
   value       = aws_instance.mundose_vm.public_ip
 }
 
