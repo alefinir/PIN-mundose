@@ -29,7 +29,7 @@ provider "aws" {
 ####################
 resource "aws_security_group" "ssh_access" {
   name        = "ssh-access-sg"
-  description = "Permite acceso SSH desde una IP específica"
+  #description = "Permite acceso SSH desde una IP especifica"
 
   ingress {
     from_port   = 22
