@@ -25,6 +25,50 @@ provider "aws" {
   region = "us-east-1" # You can change this to your desired region.
 }
 
+
+####################
+resource "aws_security_group" "ssh_access" {
+  name        = "ssh-access-sg"
+  description = "Permite acceso SSH desde una IP específica"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["190.134.158.217/32"] # ¡Importante! Aquí se restringe el acceso a la IP deseada
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Despliega la instancia EC2
+resource "aws_instance" "mundose_vm" {
+  ami                         = "ami-00c39f71452c08778"
+  instance_type = "t2.micro"
+  key_name                    = "alefinir"
+  associate_public_ip_address = true
+  vpc_security_group_ids = [aws_security_group.ssh_access.id]
+  tags = {
+    Name = "mundose-vm"
+  }
+}
+
+# ---
+### Salidas de la Instancia
+# ---
+
+output "public_ip" {
+  description = "La dirección IP pública de la instancia EC2"
+  value       = aws_instance.mundose_vm.public_ip
+}
+
+####################
+
 # ---------------------------------------------------------------------------------------------------------------------
 # VPC AND NETWORKING
 # ---------------------------------------------------------------------------------------------------------------------
