@@ -5,8 +5,6 @@
 <p align="left">
 <ul>
   <li>Gibrán Guzmán </li>
-  <li>Jonathan Franco</li>
-  <li>Lautaro Correa Lopez</li>
   <li>Martin Ludueña</li>
   <li>Francisco Boll</li>
   <li>Antonio Lefiñir</li>
